@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/card";
+import { Card, CardContent } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { exteriorServices, interiorServices } from "../app/data/servicesData";
 import { VehicleType } from "./PackagesSection";
@@ -27,7 +27,7 @@ export function ServicesSection({ vehicleType }: ServicesSectionProps) {
   // Renders a grid of service cards for either exterior or interior
   const renderServices = (services: typeof exteriorServices) => {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {services.map((srv) => {
           const price = getPrice(srv);
 
@@ -52,7 +52,7 @@ export function ServicesSection({ vehicleType }: ServicesSectionProps) {
               {/* Top image (srv.img) */}
               <div className="relative w-full h-40">
                 <Image
-                  src={srv.img}     // Path stored in srv.img
+                  src={srv.img} // Path stored in srv.img
                   alt={srv.name}
                   fill
                   className="object-cover"
@@ -67,8 +67,7 @@ export function ServicesSection({ vehicleType }: ServicesSectionProps) {
 
               {/* Description content */}
               <CardContent className="px-4 pt-2 pb-4 flex-1 space-y-2">
-                {/* Show only a portion of description so the card isn't huge */}
-                {srv.description.slice(0, 5).map((line: string, idx: number) => (
+                {srv.description.map((line: string, idx: number) => (
                   <p key={idx} className="text-sm text-white/80 leading-relaxed">
                     {line}
                   </p>

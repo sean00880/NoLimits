@@ -71,7 +71,7 @@ export function PackagesSection({ vehicleType }: PackagesSectionProps) {
               {/* Card content */}
               <CardContent className="px-4 pt-2 pb-4 flex-1 space-y-2">
                 {/* Show a short snippet so it doesn't get too tall */}
-                {pkg.description.slice(0, 5).map((line: string, idx: number) => (
+                {pkg.description.map((line: string, idx: number) => (
                   <p key={idx} className="text-sm text-white/80 leading-relaxed">
                     {line}
                   </p>
