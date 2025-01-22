@@ -2,8 +2,8 @@
 
 import React, { Suspense, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { exteriorServices, interiorServices } from "../../app/data/servicesData";
-import { packagesData } from "../../app/data/packagesData";
+import { exteriorServices, interiorServices } from "../data/servicesData";
+import { packagesData } from "../data/packagesData";
 import { Calendar, Radio, RadioGroup, Button, ButtonGroup, cn } from "@nextui-org/react";
 import { today, getLocalTimeZone, isWeekend, startOfWeek, startOfMonth } from "@internationalized/date";
 import { supabase } from "@/components/lib/supaBaseClient";
@@ -65,7 +65,9 @@ const [phone, setPhone] = useState<string>("");
     let nextWeek = startOfWeek(now.add({weeks: 1}), locale);
     let nextMonth = startOfMonth(now.add({months: 1}));
   
-
+    const [preferredTime, setPreferredTime] = useState<string>("");
+    const [alternateTime, setAlternateTime] = useState<string>("");
+    
   // On mount, read ?service= from the URL and pre-select if found
   useEffect(() => {
     const serviceParam = searchParams?.get("service");
@@ -149,8 +151,8 @@ const [phone, setPhone] = useState<string>("");
   }
 
   const handleSubmit = async () => {
-    if (!name || !email || !phone) {
-      alert("Please fill out all the required fields (Name, Email, Phone).");
+    if (!name || !email || !phone || !preferredTime) {
+      alert("Please fill out all the required fields (Name, Email, Phone, Preferred Time).");
       return;
     }
   
@@ -162,6 +164,8 @@ const [phone, setPhone] = useState<string>("");
       client_name: name,
       client_email: email,
       client_phone: phone,
+      preferred_time: preferredTime,
+      alternate_time: alternateTime || null, // Allow alternate time to be optional
     };
   
     try {
@@ -221,11 +225,14 @@ const [phone, setPhone] = useState<string>("");
       setName("");
       setEmail("");
       setPhone("");
+      setPreferredTime("");
+      setAlternateTime("");
     } catch (err) {
       console.error("Error submitting quote or sending email:", err);
       alert("An error occurred. Please try again.");
     }
   };
+  
   
   
   
@@ -516,6 +523,26 @@ const [phone, setPhone] = useState<string>("");
       />
           </section>
  
+          <div>
+  <label className="block font-medium mb-1">Preferred Time:</label>
+  <input
+    type="time"
+    value={preferredTime}
+    onChange={(e) => setPreferredTime(e.target.value)}
+    className="w-full p-2 border rounded bg-black text-white"
+    placeholder="Select your preferred time"
+  />
+</div>
+<div>
+  <label className="block font-medium mb-1">Alternate Time:</label>
+  <input
+    type="time"
+    value={alternateTime}
+    onChange={(e) => setAlternateTime(e.target.value)}
+    className="w-full p-2 border rounded bg-black text-white"
+    placeholder="Select an alternate time"
+  />
+</div>
 
           <button className="w-full bg-green-600 hover:bg-green-700 py-2 px-4 rounded" onClick={handleSubmit}>
             Submit Quote
