@@ -1,0 +1,38 @@
+# Differences in Functionality between `page.tsx` and `page2.tsx`
+
+## 1. Imports
+- `page2.tsx` imports additional services: `lawncareServices`, `pressureWashingServices`, `dumpRunServices`, and `gardeningServices`.
+- `page.tsx` imports `exteriorServices` and `interiorServices`.
+
+## 2. State Management
+- `page2.tsx` manages state for multiple categories and frequencies:
+  - `lawncareServicesState`, `pressureWashingServicesState`, `dumpRunServicesState`, `gardeningServicesState`
+  - `selectedPackages`, `activeCategory`, `selectedFrequency`
+- `page.tsx` manages state for vehicle size and selected services:
+  - `vehicleSize`, `selectedServices`
+
+## 3. Service Selection Logic
+- `page2.tsx` includes logic for toggling services and packages, and handles frequency changes.
+- `page.tsx` includes logic for toggling services based on vehicle size.
+
+## 4. Form Submission
+- `page2.tsx` includes additional data in the form submission:
+  - `category`, `frequency`, `packages`
+- `page.tsx` includes data related to vehicle size and selected services.
+
+## 5. UI Components
+- `page2.tsx` includes UI components for selecting categories and frequencies.
+- `page.tsx` includes UI components for selecting vehicle size.
+
+## 6. Discount Combos
+- Both files include discount combos, but `page2.tsx` does not utilize them in the same way as `page.tsx`.
+
+## 7. Calendar and Date Selection
+- Both files include a calendar component for date selection.
+
+## 8. Email Notifications
+- Both files handle email notifications for form submissions.
+
+## Summary
+- `page2.tsx` is designed for a broader range of services and includes more complex state management and UI components.
+- `page.tsx` is focused on vehicle detailing services with simpler state management and UI components.

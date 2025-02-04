@@ -10,6 +10,8 @@ interface EmailTemplateProps {
     client_name: string;
     client_email: string;
     client_phone: string;
+    preferred_time: string;
+    alternate_time?: string;
   };
 }
 
@@ -33,6 +35,7 @@ export const EmailTemplate: React.FC<EmailTemplateProps> = ({ firstName, details
           overflow: "hidden",
         }}
       >
+        {/* Header */}
         <div
           style={{
             backgroundColor: "#4caf50",
@@ -40,74 +43,71 @@ export const EmailTemplate: React.FC<EmailTemplateProps> = ({ firstName, details
             padding: "15px 20px",
             fontSize: "20px",
             fontWeight: "bold",
+            textAlign: "center",
           }}
         >
           Hello {firstName},
         </div>
+
+        {/* Body */}
         <div style={{ padding: "20px" }}>
-          <p style={{ fontSize: "16px", margin: "0 0 15px 0" }}>
+          <p style={{ fontSize: "16px", marginBottom: "15px" }}>
             A new quote request has been submitted. Below are the details:
           </p>
-          <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "20px" }}>
+
+          {/* Details Table */}
+          <table
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              marginBottom: "20px",
+              border: "1px solid #ddd",
+            }}
+          >
             <tbody>
               <tr>
-                <td style={{ padding: "10px", fontWeight: "bold", borderBottom: "1px solid #ddd" }}>
-                  Vehicle Size:
-                </td>
-                <td style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>
-                  {details.vehicle_size}
-                </td>
+                <td style={styles.label}>Vehicle Size:</td>
+                <td style={styles.value}>{details.vehicle_size}</td>
               </tr>
               <tr>
-                <td style={{ padding: "10px", fontWeight: "bold", borderBottom: "1px solid #ddd" }}>
-                  Services:
-                </td>
-                <td style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>
-                  {JSON.parse(details.services).join(", ")}
-                </td>
+                <td style={styles.label}>Services:</td>
+                <td style={styles.value}>{JSON.parse(details.services).join(", ")}</td>
               </tr>
               <tr>
-                <td style={{ padding: "10px", fontWeight: "bold", borderBottom: "1px solid #ddd" }}>
-                  Date:
-                </td>
-                <td style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>{details.date}</td>
+                <td style={styles.label}>Date:</td>
+                <td style={styles.value}>{details.date}</td>
               </tr>
               <tr>
-                <td style={{ padding: "10px", fontWeight: "bold", borderBottom: "1px solid #ddd" }}>
-                  Total:
-                </td>
-                <td style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>${details.total}</td>
+                <td style={styles.label}>Total:</td>
+                <td style={styles.value}>${details.total}</td>
               </tr>
               <tr>
-                <td style={{ padding: "10px", fontWeight: "bold", borderBottom: "1px solid #ddd" }}>
-                  Name:
-                </td>
-                <td style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>
-                  {details.client_name}
-                </td>
+                <td style={styles.label}>Preferred Time:</td>
+                <td style={styles.value}>{details.preferred_time}</td>
               </tr>
               <tr>
-                <td style={{ padding: "10px", fontWeight: "bold", borderBottom: "1px solid #ddd" }}>
-                  Email:
-                </td>
-                <td style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>
-                  {details.client_email}
-                </td>
+                <td style={styles.label}>Alternate Time:</td>
+                <td style={styles.value}>{details.alternate_time || "Not specified"}</td>
               </tr>
               <tr>
-                <td style={{ padding: "10px", fontWeight: "bold", borderBottom: "1px solid #ddd" }}>
-                  Phone:
-                </td>
-                <td style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>
-                  {details.client_phone}
-                </td>
+                <td style={styles.label}>Name:</td>
+                <td style={styles.value}>{details.client_name}</td>
+              </tr>
+              <tr>
+                <td style={styles.label}>Email:</td>
+                <td style={styles.value}>{details.client_email}</td>
+              </tr>
+              <tr>
+                <td style={styles.label}>Phone:</td>
+                <td style={styles.value}>{details.client_phone}</td>
               </tr>
             </tbody>
           </table>
-          <p style={{ fontSize: "16px", margin: "0" }}>
-            Thank you for using our services!
-          </p>
+
+          <p style={{ fontSize: "16px", margin: "0" }}>Thank you for using our services!</p>
         </div>
+
+        {/* Footer */}
         <div
           style={{
             backgroundColor: "#f1f1f1",
@@ -117,9 +117,24 @@ export const EmailTemplate: React.FC<EmailTemplateProps> = ({ firstName, details
             color: "#888",
           }}
         >
-          This is an automated email. Please do not reply to this email.
+          This is an automated email. Please do not reply.
         </div>
       </div>
     </div>
   );
 };
+
+// Reusable Styles for Table Cells
+const styles = {
+  label: {
+    padding: "10px",
+    fontWeight: "bold",
+    borderBottom: "1px solid #ddd",
+    backgroundColor: "#f5f5f5",
+  },
+  value: {
+    padding: "10px",
+    borderBottom: "1px solid #ddd",
+  },
+};
+

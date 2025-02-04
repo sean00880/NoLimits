@@ -9,7 +9,6 @@ import { today, getLocalTimeZone, isWeekend, startOfWeek, startOfMonth } from "@
 import { supabase } from "@/components/lib/supaBaseClient";
 import { useLocale } from "@react-aria/i18n";
 import { Resend } from "resend";
-import { EmailTemplate } from "@/components/components/email-template";
 
 const resend = new Resend(process.env.RESEND_API_KEY); // Set RESEND_API_KEY in your .env.local file
 
@@ -524,7 +523,7 @@ const [phone, setPhone] = useState<string>("");
           </section>
  
           <div>
-  <label className="block font-medium mb-1">Preferred Time:</label>
+  <label className="block font-medium mb-1 text-black">Preferred Time:</label>
   <input
     type="time"
     value={preferredTime}
@@ -534,7 +533,7 @@ const [phone, setPhone] = useState<string>("");
   />
 </div>
 <div>
-  <label className="block font-medium mb-1">Alternate Time:</label>
+  <label className="block font-medium mb-1 text-black">Alternate Time:</label>
   <input
     type="time"
     value={alternateTime}
