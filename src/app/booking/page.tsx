@@ -184,8 +184,8 @@ const [phone, setPhone] = useState<string>("");
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          to: "service@nolimitsmobiledetailing.com",
-          subject: "New Quote Request Submitted",
+          to: "nolimitsautodetailers@gmail.com",
+          subject: "New Quote Request Received",
           firstName: "Admin",
           details: data,
         }),
